@@ -91,15 +91,15 @@ qed
 
 (* 4.4.2 Structural Induction *)
 
-lemma "\<Sum>{0..n::nat} = n * (n + 1) div 2"
+lemma "\<Sum>{0..n :: nat} = n * (n + 1) div 2"
 proof (induction n)
-  show "\<Sum>{0..0::nat} = 0 * (0+1) div 2" by simp
+  show "\<Sum>{0..0 :: nat} = 0 * (0 + 1) div 2" by simp
 next
   fix n assume "\<Sum>{0..n::nat} = n * (n + 1) div 2"
   thus "\<Sum>{0..Suc n} = Suc n * (Suc n + 1) div 2" by simp
 qed
 
-lemma "\<Sum>{0..n::nat} = n * (n + 1) div 2" (is "?P n")
+lemma "\<Sum>{0..n :: nat} = n * (n + 1) div 2" (is "?P n")
 proof (induction n)
   show "?P 0" by simp
 next
@@ -110,8 +110,8 @@ qed
 (* 4.4.4 Rule Induction *)
 
 inductive ev :: "nat \<Rightarrow> bool" where
-  ev0: "ev 0" |
-  evSS: "ev n \<Longrightarrow> ev(Suc(Suc n))"
+  ev0 : "ev 0" |
+  evSS : "ev n \<Longrightarrow> ev(Suc(Suc n))"
 
 fun evn :: "nat \<Rightarrow> bool" where
   "evn 0 = True" |
