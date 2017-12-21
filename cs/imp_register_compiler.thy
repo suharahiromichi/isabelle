@@ -1,6 +1,9 @@
 (*
 Concrete Semantics with Isabelle/HOL
 3. Case Study: IMP Expressions
+
+Proof is based on "Proof of validity of compilation result of IMP".
+https://qiita.com/masateruk/items/06a6e4ffbb18307403c2
 *)
 
 theory "imp_register_compiler" imports Main begin
