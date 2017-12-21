@@ -1,3 +1,8 @@
+(*
+Concrete Semantics with Isabelle/HOL
+3. Case Study: IMP Expressions
+*)
+
 theory "imp_stack_compiler" imports Main begin
 
 (*********************************************)
@@ -15,9 +20,8 @@ fun aval :: "aexp \<Rightarrow> state \<Rightarrow> val" where
   "aval (V x) s = s x" |
   "aval (Plus a\<^sub>1 a\<^sub>2) s = aval a\<^sub>1 s + aval a\<^sub>2 s"
 
-value "aval (Plus (V ''x'') (N 5)) (\<lambda>x. if x = ''x'' then 7 else 0)"
-
-value "aval (Plus (V ''x'') (N 5)) ((\<lambda>x. 0) (''x'':= 7))"
+value "aval (Plus (V ''x'') (N 5)) (\<lambda>x. if x = ''x'' then 7 else 0)" (* 12 *)
+value "aval (Plus (V ''x'') (N 5)) ((\<lambda>x. 0) (''x'':= 7))" (* 12 *)
 
 definition null_state ("<>") where
   "null_state \<equiv> \<lambda>x. 0"
@@ -45,9 +49,8 @@ fun asimp_const :: "aexp \<Rightarrow> aexp" where
     (N n\<^sub>1, N n\<^sub>2) \<Rightarrow> N(n\<^sub>1+n\<^sub>2) |
     (b\<^sub>1,b\<^sub>2) \<Rightarrow> Plus b\<^sub>1 b\<^sub>2)"
 
-theorem aval_asimp_const:
-  "aval (asimp_const a) s = aval a s"
-  apply(induction a)
+lemma aval_asimp_const : "aval (asimp_const a) s = aval a s"
+  apply (induction a)
     apply (auto split: aexp.split)
 done
 
@@ -57,7 +60,7 @@ fun plus :: "aexp \<Rightarrow> aexp \<Rightarrow> aexp" where
   "plus a (N i) = (if i=0 then a else Plus a (N i))" |
   "plus a\<^sub>1 a\<^sub>2 = Plus a\<^sub>1 a\<^sub>2"
 
-lemma aval_plus[simp] : "aval (plus a1 a2) s = aval a1 s + aval a2 s"
+lemma aval_plus [simp] : "aval (plus a1 a2) s = aval a1 s + aval a2 s"
   apply (induction a1 a2 rule: plus.induct)
               apply simp_all (* just for a change from auto *)
   done
@@ -69,7 +72,7 @@ fun asimp :: "aexp \<Rightarrow> aexp" where
 
 value "asimp (Plus (Plus (N 0) (N 0)) (Plus (V ''x'') (N 0)))" (* "V ''x''" *)
 
-lemma aval_asimp[simp] : "aval (asimp a) s = aval a s"
+lemma aval_asimp [simp] : "aval (asimp a) s = aval a s"
   apply (induction a)
     apply simp_all
   done
@@ -92,14 +95,13 @@ fun exec1 :: "instr \<Rightarrow> state \<Rightarrow> stack \<Rightarrow> stack"
 
 fun exec :: "instr list \<Rightarrow> state \<Rightarrow> stack \<Rightarrow> stack" where
   "exec [] _ stk = stk" |
-  "exec (i#is) s stk = exec is s (exec1 i s stk)"
+  "exec (i # is) s stk = exec is s (exec1 i s stk)"
 
-value "exec [LOADI 5, LOAD ''y'', ADD] <''x'' := 42, ''y'' := 43> [50]"
+value "exec [LOADI 5, LOAD ''y'', ADD] <''x'' := 42, ''y'' := 43> [50]" (* [48, 50] *)
 
-lemma exec_append[simp]:
-  "exec (is1@is2) s stk = exec is2 s (exec is1 s stk)"
+lemma exec_append [simp] : "exec (is1 @ is2) s stk = exec is2 s (exec is1 s stk)"
   apply (induction is1 arbitrary: stk)
-   apply (auto)
+   apply auto
   done
 
 (*********************************************)
@@ -116,7 +118,7 @@ value "comp (Plus (Plus (V ''x'') (N 1)) (V ''z''))"
 
 theorem exec_comp : "exec (comp a) s stk = aval a s # stk"
   apply (induction a arbitrary: stk)
-    apply (auto)
+    apply auto
   done
 
 end
