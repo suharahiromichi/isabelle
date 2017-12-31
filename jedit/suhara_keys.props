@@ -1,12 +1,11 @@
 #jEdit's keymap suhara
-#Mon Dec 18 22:12:49 JST 2017
+#Mon Jan 01 00:38:54 JST 2018
 C/Include_Guard.shortcut=CA+i
 C/Toggle_Header_Source.shortcut=A+h
 C/Toggle_Header_Source.shortcut2=CA+h
 Clipboard/Cut_Lines.shortcut=C+m C+k
 Editing/Move_Lines_Down.shortcut=C+m C+d
 Editing/Move_Lines_Up.shortcut=C+m C+u
-Emacs/Emacs_Capitalize_Word.shortcut=A+c
 Emacs/Emacs_Downcase_Word.shortcut=A+l
 Emacs/Emacs_Exchange_Point_and_Mark.shortcut=C+x C+x
 Emacs/Emacs_Fixup_Whitespace.shortcut=A+SPACE
@@ -87,6 +86,7 @@ indent-lines.shortcut=TAB
 indent.shortcut=C+x C+b
 insert-literal.shortcut=C+6
 insert-tab.shortcut=C+i
+isabelle.complete.shortcut2=C+b
 isabelle.control-bold.shortcut=C+e RIGHT
 isabelle.control-emph.shortcut=C+e LEFT
 isabelle.control-reset.shortcut=C+e BACK_SPACE
@@ -220,8 +220,7 @@ toggle-multi-select.shortcut2=C+NUMBER_SIGN
 toggle-rect-select.shortcut=A+BACK_SLASH
 toggle-rect-select.shortcut2=A+NUMBER_SIGN
 transpose-chars.shortcut=C+t
-undo.shortcut=C+z
-undo.shortcut2=C+SLASH
+undo.shortcut=AS+MINUS
 unsplit-current.shortcut=C+0
 unsplit-current.shortcut2=C+x 1
 unsplit.shortcut=C+1
