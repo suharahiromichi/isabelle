@@ -26,6 +26,8 @@ lemma max_hdtl_eq [simp] : "l \<noteq> [] \<Longrightarrow> max (hd l) (maximum 
 
 lemma l1 : "max (maximum x) y = maximum l \<Longrightarrow>
        x \<noteq> [] \<Longrightarrow> y \<le> hd x \<Longrightarrow> max (maximum (tl x)) (hd x) = maximum l"
+  by (metis max.assoc max.commute max_def max_hdtl_eq)
+(*
 proof -
   fix x y l
   assume 1 : "max (maximum x) y = maximum l" and
@@ -34,9 +36,12 @@ proof -
   show "max (maximum (tl x)) (hd x) = maximum l"
     by (metis "1" "2" "3" max.assoc max.commute max_def max_hdtl_eq)
 qed
+*)
 
 lemma l2 : "max (maximum x) y = maximum l \<Longrightarrow>
        x \<noteq> [] \<Longrightarrow> \<not> y \<le> hd x \<Longrightarrow> max (maximum (tl x)) y = maximum l"
+  by (metis max.assoc max.commute max_def max_hdtl_eq)
+(*
 proof -
   fix x y l
   assume 1 : "max (maximum x) y = maximum l" and
@@ -45,13 +50,17 @@ proof -
   show "max (maximum (tl x)) y = maximum l"
     by (metis "1" "2" "3" max.assoc max.commute max_def max_hdtl_eq)
 qed
+*)
 
-lemma l3 : "max (maximum []) y = maximum l \<Longrightarrow> y = maximum l" 
+lemma l3 : "max (maximum []) y = maximum l \<Longrightarrow> y = maximum l"
+  by (simp add: maximum_def) 
+(*
 proof -
   fix y l
   assume "max (maximum []) y = maximum l"
   thus "y = maximum l" using maximum_def by auto
 qed
+*)
 
 (* ******* *)
 (* ******* *)
