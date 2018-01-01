@@ -14,41 +14,6 @@ definition maximum :: "nat list \<Rightarrow> nat" where
 value "maximum [1,3,5,4,2]"    (* 5 *)
 value "maximum []"             (* 0 *)
 
-(*
-lemma max0r [simp] : "\<forall>a::nat. max 0 a = a"
-  by (simp add: max_def)
-
-lemma max0l [simp] : "\<forall>a::nat. max a 0 = a"
-  by (simp add: max_def)
-
-lemma max_assoc [simp] : "\<forall>x y z. max a (max b c) = max (max a b) c"
-  apply (simp add: max_def)
-  apply auto
-  sorry
-
-lemma l_hdtl [simp] : "x \<noteq> [] \<Longrightarrow> hd x # tl x = x"
-  apply (induct x)
-  by auto
-
-lemma max_nil [simp] : "maximum [] = 0"
-  apply (simp add: maximum_def)
-  done
-
-lemma max_sym [simp] : "max a b = max b a"
-  apply (simp add: max_def)
-  apply auto
-  sorry
-
-lemma hdtl_eq [simp] : "x \<noteq> [] \<Longrightarrow> hd x # tl x = x"
-proof (induct x)
-  assume "[] \<noteq> []"
-  thus "hd [] # tl [] = []" by auto
-next
-  fix a x
-  show "hd (a # x) # tl (a # x) = a # x" by auto
-qed
-*)
-
 lemma max_hdtl_eq [simp] : "l \<noteq> [] \<Longrightarrow> max (hd l) (maximum (tl l)) = maximum l"
   apply (induct l)
   apply (auto)
@@ -59,11 +24,11 @@ lemma max_hdtl_eq [simp] : "l \<noteq> [] \<Longrightarrow> max (hd l) (maximum 
 (* ******* *)
 (* ******* *)
 
-lemma l1 : "max (maximum []) y = maximum l \<Longrightarrow> y = maximum l"
+lemma l1 [simp] : "max (maximum []) y = maximum l \<Longrightarrow> y = maximum l"
   apply (simp add: maximum_def)
   done  
 
-lemma l2 : "max y (maximum x) = maximum l \<Longrightarrow>
+lemma l2 [simp] : "max y (maximum x) = maximum l \<Longrightarrow>
        x \<noteq> [] \<Longrightarrow> y \<le> hd x \<Longrightarrow> maximum x = maximum l"
 proof -
   fix x y l
@@ -75,7 +40,7 @@ proof -
     by (metis "1" "2" dual_order.antisym max.bounded_iff max_def max_hdtl_eq)
 qed
 
-lemma l3 : "max y (maximum x) = maximum l \<Longrightarrow>
+lemma l3 [simp] : "max y (maximum x) = maximum l \<Longrightarrow>
        x \<noteq> [] \<Longrightarrow> \<not> y \<le> hd x \<Longrightarrow> max y (maximum (tl x)) = maximum l"
 proof -
   fix x y l
@@ -109,7 +74,6 @@ theorem "TRUE
   {y = maximum l}"
   apply vcg_simp
   apply auto
-  apply (simp_all add: l1 l2 l3)
   done
 
 end
