@@ -24,32 +24,34 @@ lemma max_hdtl_eq [simp] : "l \<noteq> [] \<Longrightarrow> max (hd l) (maximum 
 (* ******* *)
 (* ******* *)
 
-lemma l1 [simp] : "max (maximum []) y = maximum l \<Longrightarrow> y = maximum l"
-  apply (simp add: maximum_def)
-  done  
-
-lemma l2 [simp] : "max y (maximum x) = maximum l \<Longrightarrow>
-       x \<noteq> [] \<Longrightarrow> y \<le> hd x \<Longrightarrow> maximum x = maximum l"
+lemma l1 : "max (maximum x) y = maximum l \<Longrightarrow>
+       x \<noteq> [] \<Longrightarrow> y \<le> hd x \<Longrightarrow> max (maximum (tl x)) (hd x) = maximum l"
 proof -
   fix x y l
-  assume 1 : "max y (maximum x) = maximum l" and
+  assume 1 : "max (maximum x) y = maximum l" and
     2 : "x \<noteq> []" and
     3 : "y \<le> hd x"
-
-  show "maximum x = maximum l"
-    by (metis "1" "2" dual_order.antisym max.bounded_iff max_def max_hdtl_eq)
+  show "max (maximum (tl x)) (hd x) = maximum l"
+    by (metis "1" "2" "3" max.assoc max.commute max_def max_hdtl_eq)
 qed
 
-lemma l3 [simp] : "max y (maximum x) = maximum l \<Longrightarrow>
-       x \<noteq> [] \<Longrightarrow> \<not> y \<le> hd x \<Longrightarrow> max y (maximum (tl x)) = maximum l"
+lemma l2 : "max (maximum x) y = maximum l \<Longrightarrow>
+       x \<noteq> [] \<Longrightarrow> \<not> y \<le> hd x \<Longrightarrow> max (maximum (tl x)) y = maximum l"
 proof -
   fix x y l
-  assume 1 : "max y (maximum x) = maximum l" and
+  assume 1 : "max (maximum x) y = maximum l" and
     2 : "x \<noteq> []" and
     3 : "\<not> y \<le> hd x"
+  show "max (maximum (tl x)) y = maximum l"
+    by (metis "1" "2" "3" max.assoc max.commute max_def max_hdtl_eq)
+qed
 
-  show "max y (maximum (tl x)) = maximum l"
-    by (metis "1" "2" "3" max.assoc max_def max_hdtl_eq)
+lemma l3 : "max (maximum []) y = maximum l \<Longrightarrow> y = maximum l" 
+proof -
+  fix y l
+  assume "max (maximum []) y = maximum l"
+  show "y = maximum l"
+    using \<open>max (maximum []) y = maximum l\<close> maximum_def by auto
 qed
 
 (* ******* *)
@@ -72,8 +74,9 @@ theorem "TRUE
     x := tl x
   OD
   {y = maximum l}"
-  apply vcg_simp
+  apply vcg
   apply auto
+  apply (simp_all add: l1 l2 l3) 
   done
 
 end
