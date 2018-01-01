@@ -50,8 +50,7 @@ lemma l3 : "max (maximum []) y = maximum l \<Longrightarrow> y = maximum l"
 proof -
   fix y l
   assume "max (maximum []) y = maximum l"
-  show "y = maximum l"
-    using \<open>max (maximum []) y = maximum l\<close> maximum_def by auto
+  thus "y = maximum l" using maximum_def by auto
 qed
 
 (* ******* *)
@@ -80,3 +79,5 @@ theorem "TRUE
   done
 
 end
+
+(* END *)
