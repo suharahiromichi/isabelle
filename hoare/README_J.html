@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<HTML>
+
+<HEAD>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE>HOL/Hoare/ReadMe (日本語版）</TITLE>
+</HEAD>
+
+<BODY>
+
+<H2>簡単なWHILE言語のためのHoare論理</H2>
+
+<H3>言語と論理</H3>
+
+このディレクトリには、簡単なWHILE言語のHoare論理の実装が含まれています。構成は次のとおりです。
+<UL>
+<LI> <kbd>SKIP</kbd>
+<LI> <kbd>_ := _</kbd>
+<LI> <kbd>_ ; _</kbd>
+<LI> <kbd>IF _ THEN _ ELSE _ FI</kbd>
+<LI> <kbd>WHILE _ INV {_} DO _ OD</kbd>
+</UL>
+WHILEループには不変量を注釈する必要があることに注意してください。
+<P>
+
+(Isabelleの)theoryとしてHoareをロードした後、formにゴールを記述することができます。
+(you can state goals of the form)
+<PRE>
+VARS x y ... {P} prog {Q}
+</PRE>
+ここで <kbd>prog</kbd> は、上記の言語のプログラムで、
+<kbd>P</kbd> は事前条件、
+<kbd>Q</kbd> は事後条件、そして
+<kbd>x y ...</kbd> は、<kbd>prog</kbd>の中のすべての<i>プログラムの変数</i>です。
+
+プログラム変数のリストは空であってはならず、
+<kbd>prog</kbd>の代入左辺にあるすべての変数を含む必要があります。
+
+例えば：
+<PRE>
+VARS x {x = a} x := x+1 {x = a+1}
+</PRE>
+
+(ノーマル)変数 <kbd>a</kbd> は、単に<kbd>x</kbd>の初期値を記録するのの使われ、
+プログラム変数ではありません。
+事前・事後条件は、どちらも、プログラム変数とノーマル変数に言及する任意のHOLの式(formulae)です。
+<P>
+
+この実装は、Hoare論理の推論を完全に隠し、
+Hoare論理<kbd>vcg</kbd>の目標をHOLで記述された等値な検証条件のリストに
+変換する方法を提供します：
+
+<PRE>
+apply vcg
+</PRE>
+結果として得られる検証条件を同時に簡素化したい場合：
+
+<PRE>
+apply vcg_simp
+</PRE>
+上記の目標の例を考えれば、それを完全に解決します。
+<a href="Examples.html">例</a>を参照してください。
+<P>
+
+重要：
+これは部分的正当性(partial correctness)の論理です。
+プログラムが正しいことをしていることを証明できた場合それは終了しますが、
+そうでなければ、それが終了します。
+
+<H3>実装についてのメモ</H3>
+
+実装は概ね以下によります。
+
+<P>
+Mike Gordon.
+<cite>Mechanizing Programming Logics in Higher Order Logic.</cite><BR>
+University of Cambridge, Computer Laboratory, TR 145, 1988.
+<P>
+
+以下として出版されています。
+
+<P>
+Mike Gordon.
+<cite>Mechanizing Programming Logics in Higher Order Logic.</cite><BR>
+In
+<cite>Current Trends in Hardware Verification and Automated Theorem Proving
+</cite>,<BR>
+edited by G. Birtwistle and P.A. Subrahmanyam, Springer-Verlag, 1989. 
+<P>
+
+主な相違：状態は以下で示唆されるように。タプルとしてモデル化されています。
+  
+<P>
+J. von Wright and J. Hekanaho and P. Luostarinen and T. Langbacka.
+<cite>Mechanizing Some Advanced Refinement Concepts</cite>.
+Formal Methods in System Design, 3, 1993, 49-81.
+<P>
+
+埋め込が深い、すなわち具体的なプログラムのデータ型があります。
+後者は本当に必要ではありません。
+
+</BODY>
+</HTML>
