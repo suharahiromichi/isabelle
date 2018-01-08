@@ -1,5 +1,5 @@
 #jEdit's keymap suhara
-#Mon Jan 01 00:38:54 JST 2018
+#Mon Jan 08 19:33:39 JST 2018
 C/Include_Guard.shortcut=CA+i
 C/Toggle_Header_Source.shortcut=A+h
 C/Toggle_Header_Source.shortcut2=CA+h
@@ -127,7 +127,7 @@ new-plain-view.shortcut=CA+n
 new-view.shortcut=CS+n
 new-view.shortcut2=CS+N
 next-bracket.shortcut2=C+e C+9
-next-buffer.shortcut=C+PAGE_DOWN
+next-buffer.shortcut=A+x n
 next-char.shortcut=A+f
 next-char.shortcut2=RIGHT
 next-fold.shortcut=C+m C+f
@@ -143,7 +143,7 @@ paste-deleted.shortcut=C+y
 paste-string-register.shortcut=C+r C+v
 paste.shortcut=A+y
 prev-bracket.shortcut2=C+e C+8
-prev-buffer.shortcut=C+PAGE_UP
+prev-buffer.shortcut=A+x b
 prev-char.shortcut=A+b
 prev-char.shortcut2=LEFT
 prev-line.shortcut=UP
@@ -157,7 +157,7 @@ projectviewer_parent-group.shortcut=A+UP
 projectviewer_set-active.shortcut=A+DOWN
 projectviewer_wrapper_search_project.shortcut=C+F6
 quick-search.shortcut=C+f
-quick-search.shortcut2=C+BACK_SLASH
+quick-search.shortcut2=A+s
 recent-buffer.shortcut=A+PAGE_UP
 recent-buffer.shortcut2=C+CIRCUMFLEX
 recentbufferswitcher.shortcut=C+TAB
@@ -168,7 +168,6 @@ save-all.shortcut=C+x ENTER
 save-as.shortcut=A+x A+w
 save-as.shortcut2=C+w
 save.shortcut=A+x A+s
-save.shortcut2=A+s
 scroll-and-center.shortcut=C+l
 select-block.shortcut=C+OPEN_BRACKET
 select-block.shortcut2=C+8
