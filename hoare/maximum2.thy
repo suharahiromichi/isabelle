@@ -15,28 +15,31 @@ value "maximum []"             (* 0 *)
 
 lemma max_hdtl_eq [simp] : "l \<noteq> [] \<Longrightarrow> max (hd l) (maximum (tl l)) = maximum l"
   apply (induct l)
-  apply (auto)
-  apply (simp add: hd_def tl_def maximum_def)
-  done
+  apply auto
+  by (simp add: maximum_def)
 
-(* ******* *)
-(* ******* *)
-(* ******* *)
+(* ********* *)
+(* * lemma * *)
+(* ********* *)
 
+(* 3 subgoals, 1., 2., 3. *)
+(* 1. *)
 lemma l1 : "max (maximum x) y = maximum l \<Longrightarrow>
        x \<noteq> [] \<Longrightarrow> y \<le> hd x \<Longrightarrow> max (maximum (tl x)) (hd x) = maximum l"
-  by (metis max.assoc max.commute max_def max_hdtl_eq)
+  by (metis max.assoc max.commute max_def max_hdtl_eq) (* Sledgehammer *)
 
+(* 2. *)
 lemma l2 : "max (maximum x) y = maximum l \<Longrightarrow>
        x \<noteq> [] \<Longrightarrow> \<not> y \<le> hd x \<Longrightarrow> max (maximum (tl x)) y = maximum l"
-  by (metis max.assoc max.commute max_def max_hdtl_eq)
+  by (metis max.assoc max.commute max_def max_hdtl_eq) (* Sledgehammer *)
 
+(* 3. *)
 lemma l3 : "max (maximum []) y = maximum l \<Longrightarrow> y = maximum l"
-  by (simp add: maximum_def) 
+  by (simp add: maximum_def) (* Sledgehammer *)
 
-(* ******* *)
-(* ******* *)
-(* ******* *)
+(* ******** *)
+(* * main * *)
+(* ******** *)
 
 theorem "VARS x y l
   {x = l \<and> y = 0}
@@ -54,8 +57,8 @@ theorem "VARS x y l
   {y = maximum l}"
   apply vcg
   apply auto
-  apply (simp_all add: l1 l2 l3) 
-  done
+  (* 3 subgoals, 1., 2., 3. *)
+  by (simp_all add: l1 l2 l3) 
 
 end
 
