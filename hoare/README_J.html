@@ -65,8 +65,10 @@ apply vcg_simp
 
 重要：
 これは部分的正当性(partial correctness)の論理です。
-プログラムが正しいことをしていることを証明できた場合それは終了しますが、
-そうでなければ、それが終了します。
+もしプログラムが停止するときに限り正しいと証明できますが、
+必ずしもそれが停止するとは限りません。
+(You can only prove that your program does the right thing if it
+terminates, but not that it terminates.)
 
 <H3>実装についてのメモ</H3>
 
